@@ -81,18 +81,28 @@ void IncidenceGraph::removeNode(std::string nodeName){
 
     Node* node = findOrCreateNode(nodeName);
     for (Edge* edge : node->listEdges){
-        Node* nodaA = edge->fromNode;
+        Node* nodeA = edge->fromNode;
         Node* nodeB = edge->toNode;
         allEdges.erase(std::find(allEdges.begin(), allEdges.end(), edge));
-        nodeA 
+        nodeA->removeEdge(edge);
+        nodeB->removeEdge(edge);
         delete edge;
     }
-
-    
 } 
 
 void IncidenceGraph::disconnect(std::string nameNodeA, std::string nameNodeB){
-    // empty
+    if (nodes.find(nameNodeA)  == nodes.end() || nodes.find(nameNodeB) == nodes.end()){
+        std::cout << "Method disconnect: The nodeA: " + nameNodeA + " or the nodeB: " + nameNodeB + " does not exist" << std::endl;
+    }
+    else {
+        Node* nodeA = findOrCreateNode(nameNodeA);
+        Node* nodeB = findOrCreateNode(nameNodeB);
+        for (Edge* edge : nodeA->listEdges){
+            if (edge->toNode == nodeB){
+                nodeA->removeEdge(edge);
+            }
+        }
+    }
 }
 
 IncidenceGraph::~IncidenceGraph(){
