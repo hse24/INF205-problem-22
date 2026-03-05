@@ -80,7 +80,8 @@ void IncidenceGraph::removeNode(std::string nodeName){
     }
 
     Node* node = findOrCreateNode(nodeName);
-    for (Edge* edge : node->listEdges){
+    std::vector<Edge*> edgesToDelete(node->listEdges.begin(), node->listEdges.end());
+    for (Edge* edge : edgesToDelete){
         Node* nodeA = edge->fromNode;
         Node* nodeB = edge->toNode;
         allEdges.erase(std::find(allEdges.begin(), allEdges.end(), edge));
@@ -93,15 +94,21 @@ void IncidenceGraph::removeNode(std::string nodeName){
 void IncidenceGraph::disconnect(std::string nameNodeA, std::string nameNodeB){
     if (nodes.find(nameNodeA)  == nodes.end() || nodes.find(nameNodeB) == nodes.end()){
         std::cout << "Method disconnect: The nodeA: " + nameNodeA + " or the nodeB: " + nameNodeB + " does not exist" << std::endl;
+        return;
     }
-    else {
-        Node* nodeA = findOrCreateNode(nameNodeA);
-        Node* nodeB = findOrCreateNode(nameNodeB);
-        for (Edge* edge : nodeA->listEdges){
-            if (edge->toNode == nodeB){
-                nodeA->removeEdge(edge);
-            }
+    Node* nodeA = findOrCreateNode(nameNodeA);
+    Node* nodeB = findOrCreateNode(nameNodeB);
+    std::vector<Edge*> edgesToDelete;
+    for (Edge* edge : nodeA->listEdges){
+        if (edge->toNode == nodeB){
+            edgesToDelete.push_back(edge);
         }
+    }    
+    for (Edge* edge : edgesToDelete){
+        nodeA->removeEdge(edge);
+        nodeB->removeEdge(edge);
+        allEdges.erase(std::find(allEdges.begin(), allEdges.end(), edge));
+        delete edge;
     }
 }
 
