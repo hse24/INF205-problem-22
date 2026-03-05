@@ -1,3 +1,6 @@
 hjem skolevei skole.
 skole rettifengsel rektorskontor.
 skole tilklasse klasse.
+hjem sykebil sykehus.
+skole ulykke sykehus.
+sykehus doktorbesøk hjem.

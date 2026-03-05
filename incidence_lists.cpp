@@ -41,10 +41,10 @@ void IncidenceGraph::addEdge(std::string node_a_label, std::string edge_label, s
     toNode->addEdge(newEdge);
 }
 
-void IncidenceGraph::readFromFile(std::string filename){
-    std::ifstream file(filename);
+void IncidenceGraph::readFromFile(std::string filname){
+    std::ifstream file(filname);
     if (!file.is_open()) {
-        throw std::runtime_error("could not find fil: " + filename);
+        throw std::runtime_error("could not find fil: " + filname);
     }
     
     std::string line;
@@ -61,10 +61,10 @@ void IncidenceGraph::readFromFile(std::string filename){
     file.close();
 }
 
-void IncidenceGraph::readToFile(std::string filename){
-    std::ofstream file(filename);
+void IncidenceGraph::readToFile(std::string filname){
+    std::ofstream file(filname);
     if (!file.is_open()) {
-        throw std::runtime_error("could not create file: " + filename);
+        throw std::runtime_error("could not create file: " + filname);
     }
 
     for (Edge* edge : allEdges){
