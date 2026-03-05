@@ -73,6 +73,19 @@ void IncidenceGraph::readToFile(std::string filename){
     file.close();
 }
 
+void IncidenceGraph::checkAndDelete(){
+    std::vector<Node*> vectorNodes;
+    for (auto node : nodes){
+        vectorNodes.push_back(node.second);
+    }
+    for (Node* node : vectorNodes){
+        if (node->listEdges.size() == 0){
+            nodes.erase(node->NameNode);
+            delete node;
+        }
+    }
+}
+
 void IncidenceGraph::removeNode(std::string nodeName){
     if (nodes.find(nodeName) == nodes.end()){
         std::cout << "The node does not exist: " + nodeName << std::endl;
@@ -89,6 +102,7 @@ void IncidenceGraph::removeNode(std::string nodeName){
         nodeB->removeEdge(edge);
         delete edge;
     }
+    checkAndDelete();
 } 
 
 void IncidenceGraph::disconnect(std::string nameNodeA, std::string nameNodeB){
@@ -110,6 +124,7 @@ void IncidenceGraph::disconnect(std::string nameNodeA, std::string nameNodeB){
         allEdges.erase(std::find(allEdges.begin(), allEdges.end(), edge));
         delete edge;
     }
+    checkAndDelete();
 }
 
 IncidenceGraph::~IncidenceGraph(){

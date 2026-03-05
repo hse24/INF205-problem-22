@@ -34,6 +34,7 @@ private:
     std::unordered_map<std::string, Node*> nodes;
     Node* findOrCreateNode(const std::string label);
     std::vector<Edge*> allEdges;
+    void checkAndDelete();
 
 
 public:
