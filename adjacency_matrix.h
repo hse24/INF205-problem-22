@@ -10,8 +10,11 @@
 
 class AdjMatrix : public Graph{
 private:
+    // stores string with all nodes
     std::vector<std::string> allNodes;
+    // create a 3dmatrix with vector with strings of edges in z direction
     std::vector<std::vector<std::vector<std::string>>> matrix;
+    // needed for checkAndDelete
     bool cleanup = true;
 
 public:

@@ -45,6 +45,10 @@ public:
     void readToFile(std::string filname) override;
     void disconnect(std::string node_a_label, std::string node_b_label) override;
     void removeNode(std::string node_label) override;
+    IncidenceGraph(IncidenceGraph& other);
+    IncidenceGraph& operator=(IncidenceGraph& other);
+    IncidenceGraph(IncidenceGraph&& other) noexcept;
+    IncidenceGraph& operator=(IncidenceGraph&& other) noexcept;
 };
 
 #endif // INCIDENCE_Lists_H
